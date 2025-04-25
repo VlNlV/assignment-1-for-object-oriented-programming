@@ -10,5 +10,5 @@
 - Compilation of "network.cpp", "csvtest.cpp", and "csv.cpp" (together) works correctly, but when I try to execute it with the command line parameter of a path (that includes the GTFS files) it throws me the error.
 
 # Error pic:
-![Alt text](C:/Users/varun/Downloads/errorpic.png)
+(linked as a separate file "errorpic.png" in the repository)
 
