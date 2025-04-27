@@ -25,6 +25,7 @@ public:
 
     bool hasNext();
 
+
     void reset();
 };
 
