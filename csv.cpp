@@ -4,71 +4,81 @@
 #include <string>
 #include <sstream>
 #include "csv.h"
-        CSVReader::CSVReader(std::string path): path(path)  // constructor, we're doing the "classname::"-constructor syntax BECAUSE our class is only defined in the header file, so we need to do this syntax to refer to our class for this constructor
-        {
-            opened_file.open(path);             // open-method to open the file (we're not using "ifstream name(path)" because the class is in the header file)
-            std::getline(opened_file, line);       // gets the first line of the text file and saves it in "line" (defined in the class aka header file)
-            std::stringstream first_line(line);     // we recently went from input-file-to-line, but now we need to go to line-to-individual-characters, so we use "stringstream"
-            std::string column_name;                // string variable for column
 
-            while(std::getline(first_line, column_name, ','))   // while loop for iterating through ONE line, in this case just the column names (everytime it sees a comma, its gonna save the string it read so far in "column_name")
-            {
-                column_titles.push_back(column_name);       // this pushes each "column name" that was saved temporarily in column_name in the vector "column_titles"
-            }
+CSVReader::CSVReader(std::string path) : path(path) {
+    opened_file.open(path);
+    if (!opened_file.is_open()) { // [Added] Check if file opened successfully to avoid invalid reads
+        std::cerr << "Failed to open file: " << path << std::endl;
+        return;
+    }
+
+    if (std::getline(opened_file, line)) { // Read first line to extract column names
+        if (line.empty()) { // [Added] Check if header line is empty
+            std::cerr << "Warning: Header line is empty in file: " << path << std::endl;
+            return;
         }
+        std::stringstream first_line(line);
+        std::string column_name;
+        while (std::getline(first_line, column_name, ',')) {
+            column_titles.push_back(column_name);
+        }
+    } else {
+        std::cerr << "Warning: Could not read header line from: " << path << std::endl; // [Added] Warn if header missing
+    }
+}
 
-        std::string CSVReader::getField(std::string key)    // getField method (with column name as parameter)
-        {
-            for(int i = 0; i < column_titles.size(); ++i)   // for loop for iterating through the vector "column_titles", so it can give each column name a number
-            {
-                if(column_titles[i] == key)                 // if the number(aka the column name inside of the vector) matches the column name parameter
-                {
-                    std::stringstream singularline(line);   // within ONE line, we create a stringstream object "singularline"
-                    std::string column_member;              // string variable "column_member"
-                    int column_position = 0;                // integer variable "column_position" initialized to 0
-                    while(std::getline(singularline, column_member, ','))   // while for iterating through ONE line (reads up to a comma and whatever it read so far it saves temporarily in "column_member")
-                    {
-                        if(column_position == i)    // if the column_position equals "i" (aka the number of a header)
-                        {
-                            return column_member;      // print the column_member (no cout here because we need to return a STRING)
-                        }
-                        column_position++;              // if the if-condition didn't go through then increment column_position, so the if-condition will go through
-                    }
+
+// Get a field by column title
+std::string CSVReader::getField(std::string key) {
+    for (int i = 0; i < column_titles.size(); ++i) {
+        if (column_titles[i] == key) {
+            std::stringstream singularline(line);
+            std::string column_member;
+            int column_position = 0;
+            while (std::getline(singularline, column_member, ',')) {
+                if (column_position == i) {
+                    return column_member;
                 }
+                column_position++;
             }
-            return "";      // if the "key" isnt one of the headers, then return empty space
         }
+    }
+    return ""; // Return empty string if field not found
+}
+
             
-        std::string CSVReader::getField(std::string key, std::string defaultValue)  // exact same method as above just that "defaultValue" should be returned if "key" isn't one of the headers
-        {
-            for(int i = 0; i < column_titles.size(); ++i) 
-            {
-                if(column_titles[i] == key)
-                {
-                    std::stringstream singularline(line);
-                    std::string column_member;
-                    int column_position = 0;
-                    while(std::getline(singularline, column_member, ','))
-                    {
-                        if(column_position == i)
-                        {
-                            return column_member;
-                        }
-                        column_position++;
-                    }
+ // Get a field by column title with default value if not found
+std::string CSVReader::getField(std::string key, std::string defaultValue) {
+    for (int i = 0; i < column_titles.size(); ++i) {
+        if (column_titles[i] == key) {
+            std::stringstream singularline(line);
+            std::string column_member;
+            int column_position = 0;
+            while (std::getline(singularline, column_member, ',')) {
+                if (column_position == i) {
+                    return column_member;
                 }
+                column_position++;
             }
-            return defaultValue;    // here print defaultValue
         }
+    }
+    return defaultValue; // Return provided default if field not found
+}
+
         
-        bool CSVReader::next()
-        {
-            if (std::getline(opened_file, line))    // go to and read the next line and save it "line"
-            {
-                return true;                    // if that worked (so there's a line and it has been read), return true
-            }
-            return false;                   // no line and therefore nothing to be read, return false
+// Move to the next line in CSV
+bool CSVReader::next() {
+    if (std::getline(opened_file, line)) { // Move to next line
+        if (line.empty()) { // [Added] Skip empty lines to avoid processing empty content
+            std::cerr << "Warning: Empty line encountered. Skipping.\n";
+            return false;
         }
+        return true;
+    } else {
+        return false; // End of file reached
+    }
+}
+
 
         bool CSVReader::hasNext()      
         {
