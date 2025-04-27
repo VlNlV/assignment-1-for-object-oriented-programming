@@ -38,6 +38,7 @@ void TransfersLoader(std::string path);
 void TripsLoader(std::string path);
 
 GTFSDate DateCreator(std::string timestamp);
+
 GTFSTime TimeCreator(std::string timestamp);
 
 };
