@@ -32,6 +32,7 @@ Network example{argv[1]};
   std::cout << "stops.size: " << example.stops.size() << std::endl;
   std::cout << "transfers.size: " << example.transfers.size() << std::endl;
   std::cout << "trips.size: " << example.trips.size() << std::endl;
-return 0;
+
+    return 0;
 
 }
