@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     connect(ui->suchwort, &QLineEdit::textChanged, this, &MainWindow::SuchWortChanged);     // verbinden der signale mit den slots: hier nur mit suchwort (linedit) mit der methode "suchwortchanged", damit das listwidget auf änderung des suchworts entsprechend ändert
-    connect(ui->comboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &MainWindow::RouteChanged);
+    connect(ui->comboBox, &QComboBox::currentIndexChanged, this, &MainWindow::RouteChanged);    // routechanged wird getriggert, wenn sich der index ändert bzw. der user klickt auf eine andere linie
 
     SuchWortChanged();      // für initialisierung des listwidgets (hilft dagegen, dass nicht alte werte "vorerst" genommen werden)
 }
