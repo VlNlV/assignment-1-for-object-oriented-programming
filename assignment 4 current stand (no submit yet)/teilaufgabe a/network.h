@@ -39,7 +39,7 @@ public:
 
     std::vector<StopTime> searchStopTimesForTrip(std::string query, std::string tripId); // deklaration der funktion "searchStopTimesForTrip" die mittels der query (also des suchworts) und der tripId die stoptimes bestimmt
 
-    std::vector<bht::Stop> getStopsForTransfer(const std::string& stopId);
+    std::vector<bht::Stop> getStopsForTransfer(const std::string& stopId);    // verlangte methode für die teilaufgabe a) aus Übung 4
 private:
     void AgencyLoader(std::string path);        // methoden zum laden der einzelnen dateien (befasst jeweils das öffnen der datei, das durchgehen der datei und zuweisen der entsprechenden werte zu den werten aus dem struct)
     void CalendarDatesLoader(std::string path);
