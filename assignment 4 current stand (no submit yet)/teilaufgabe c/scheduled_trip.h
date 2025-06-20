@@ -37,7 +37,7 @@ class NetworkScheduledTrip {
       public:
         // Define properties for this iterator
         using iterator_category = std::bidirectional_iterator_tag;      // war aus aufgaben-vorlage vorgegeben
-        using difference_type   = int;
+        using difference_type   = std::ptrdiff_t;   // weil testfall 7 bei "int" crasht
         using value_type        = const StopTime;
         using pointer           = const StopTime*; 
         using reference         = const StopTime&;
