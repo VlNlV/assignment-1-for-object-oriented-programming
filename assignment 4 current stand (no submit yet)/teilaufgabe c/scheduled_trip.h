@@ -25,13 +25,6 @@ class NetworkScheduledTrip {
   
   const std::string& tripIDgetter() const;    // getter methode für trip ID
 
-    // Define properties for this iterator
-    using iterator_category = std::bidirectional_iterator_tag;      // war aus aufgaben-vorlage vorgegeben
-    using difference_type   = int;
-    using value_type        = const StopTime;
-    using pointer           = const StopTime*; 
-    using reference         = const StopTime&;
-    
     /**
      * Define an iterator to navigate the stops of a scheduled trip
      */
@@ -42,6 +35,12 @@ class NetworkScheduledTrip {
           size_t index;     // für die aktuelle position
         
       public:
+        // Define properties for this iterator
+        using iterator_category = std::bidirectional_iterator_tag;      // war aus aufgaben-vorlage vorgegeben
+        using difference_type   = int;
+        using value_type        = const StopTime;
+        using pointer           = const StopTime*; 
+        using reference         = const StopTime&;
         // TODO: THIS CLASS IS INCOMPLETE AND YOU NEED TO IMPLEMENT THE REQUIRED ATTRIBUTES
 
             iterator(const NetworkScheduledTrip* gezeigtertrip, size_t index);    // konstruktor für den iterator (zeigt auf einen trip an position "index")
