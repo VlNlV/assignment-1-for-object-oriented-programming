@@ -47,7 +47,7 @@ public:
 
     std::vector<bht::Stop> getTravelPath(const std::string& fromStopId, const std::string& toStopId);   // zweite verlangte methode für die teilaufgabe b) (berechnet den kürzesten weg von start zu ziel)
 
-    NetworkScheduledTrip getScheduledTrip(const std::string& tripId) const; 
+    NetworkScheduledTrip getScheduledTrip(const std::string& tripId) const;     //verlangt methode aus teilaufgabe c) (übergabe einer tripId und rückgabe eines NetworkScheduledTrip-Objekts)
 
 private:
     void AgencyLoader(std::string path);        // methoden zum laden der einzelnen dateien (befasst jeweils das öffnen der datei, das durchgehen der datei und zuweisen der entsprechenden werte zu den werten aus dem struct)
