@@ -15,3 +15,5 @@
 
 
 ## this version of getNeighbors and getStopsTransfer were inspired by the sample solution (because my own versions would crash in the automatic test feedback)
+
+# this directory also contains tester.cpp which includes the test file which the automatic feedback systeme uses. Seemingly the example it tests with "getTravelPath" doesnt lead to the expected output (in my terminal), so the main objective would be to find a way for the program to print the correct expected output for the getTravelPath. (for example, according to tester.cpp the specific pair of the start-station and stop-station should lead to a path of 12 stations but actually leads to 0 according my program)
