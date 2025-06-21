@@ -14,3 +14,4 @@
         - update: currently does "terminate called after throwing an instance of 'std::logic_error' what():  basic_string::_M_construct null not valid"
 
 
+## this version of getNeighbors and getStopsTransfer were inspired by the sample solution (because my own versions would crash in the automatic test feedback)
